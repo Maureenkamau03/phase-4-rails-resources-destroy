@@ -32,6 +32,18 @@ class BirdsController < ApplicationController
       render json: { error: "Bird not found" }, status: :not_found
     end
   end
+  # delete
+  def destroy
+    bird = Bird.find_by(id: params[:id])
+    if bird
+      bird.destroy
+      # will give a 204 status code, indicating that the server has successfully fulfilled the request and that there is no content to send in the response
+      head :no_content 
+      
+    else
+      render json: { error: "Bird not found" }, status: :not_found
+    end
+  end
 
   # PATCH /birds/:id/like
   def increment_likes
